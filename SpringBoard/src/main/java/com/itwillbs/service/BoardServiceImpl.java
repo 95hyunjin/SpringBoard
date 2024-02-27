@@ -33,6 +33,26 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bdao.boardListSelect();
 	}
+
+	@Override
+	public BoardVO read(Integer bno) throws Exception {
+		logger.debug(" read(Integer bno) 실행 ");
+		
+		return bdao.boardSelect(bno);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

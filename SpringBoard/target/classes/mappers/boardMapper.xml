@@ -15,7 +15,11 @@
 		select * from tbl_board order by regdate desc
 	</select>
 	
-	
+	<!-- 글 정보 조회 -->
+	<select id="selectBoard" resultType="BoardVO">
+		select * from tbl_board 
+		where bno = #{bno}
+	</select>
 	
 
 </mapper>

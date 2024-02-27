@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.domain.BoardVO;
 import com.itwillbs.service.BoardService;
@@ -52,6 +54,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	
 	// 리스트GET : /board/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void listGET(Model model) throws Exception{
@@ -64,6 +67,27 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 	}
 	
+	
+	// 본문읽기GET : /board/read?bno=000
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	// public void readGET(int bno) throws Exception{ -> @ModelAttribute("bno") int bno와 같은 의미이기 때문에 사용가능
+	public void readGET(@RequestParam("bno") int bno, Model model) throws Exception{
+		// @ModelAttribute : 파라메터 저장 + 영역저장 (1:N(객체) 관계)
+		// @RequestParam : 파라메터만 저장 (1:1 관계)
+		logger.debug(" /board/read -> readGET() 호출 ");
+		
+		// 전달정보 저장
+		logger.debug(" bno : " + bno);
+		
+		// 서비스 -> DAO 게시판 글정보 조회 동작
+		BoardVO vo = bService.read(bno);
+		// 해당 정보를 저장 -> 연결된 뷰 페이지로 전달(Model)
+		model.addAttribute("vo", vo);
+		// 서비스,model 두 의미를 합친 것 : model.addAttribute(bService.read(bno));
+		// -> attribute의 이름이 없으므로 리턴타입의 클래스를 소문자로 바꾼것을 불러주면 된다. boardVO
+		
+		// 뷰 페이지로 이동(/board/read.jsp)
+	}
 	
 	
 	
