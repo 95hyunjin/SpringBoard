@@ -4,6 +4,7 @@
 
 	<%-- ${boardVO } --%>
 	<h1>/board/modify.jsp</h1>
+	cri : ${cri }
 	<h2> 글 수정하기 </h2>
 	
 	<div class="box box-primary">
@@ -13,6 +14,9 @@
 		
 		<form role="form" method="post">
 			<input type="hidden" name="bno" value="${boardVO.bno }">
+
+			<input type="hidden" name="page" value="${cri.page }">
+			<input type="hidden" name="pageSize" value="${cri.pageSize }">
 			<div class="box-body">
 				<div class="form-group">
 					<label for="exampleInputEmail1">제  목</label>
